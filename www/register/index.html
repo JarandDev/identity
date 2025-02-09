@@ -67,7 +67,7 @@
             const email = document.getElementById("inputEmail").value;
             const password = document.getElementById("inputPassword").value;
 
-            const response = await fetch("/api/oauth/account/register",
+            const response = await fetch("https://oauth.j4d.dev/api/account/register",
                 {
                     method: "POST",
                     headers: {
