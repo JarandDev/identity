@@ -15,32 +15,6 @@ const checkToken = async () => {
     return await response.json();
 };
 
-const login = async () => {
-    const email = document.getElementById("inputEmail").value;
-    const password = document.getElementById("inputPassword").value;
-
-    const response = await fetch("https://oauth.j4d.dev/api/account/login",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        });
-    if (!response.ok) {
-        console.error(`Invalid HTTP Status: ${response.status}`);
-        return false;
-    }
-    const data = await response.json();
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("refreshToken", data.refreshToken);
-    console.log("Logged in");
-    return true;
-};
-
 const refreshToken = async () => {
     const token = localStorage.getItem("refreshToken");
 
@@ -78,19 +52,6 @@ const reloadToken = async () => {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const form = document.getElementById("form");
-
-    form.addEventListener("submit", async event => {
-        event.preventDefault();
-
-        const success = await login();
-        if (success === true) {
-            console.log("Login succeeded");
-        } else {
-            console.log("Login failed");
-        }
-    });
-
     setInterval(() => {
         reloadToken().then(() => {
             console.log("Successfully reloaded token");
