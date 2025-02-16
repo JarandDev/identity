@@ -88,12 +88,13 @@
             });
         if (!response.ok) {
             console.error(`Invalid HTTP Status: ${response.status}`);
-            return;
+            return false;
         }
         const data = await response.json();
         localStorage.setItem("token", data.token);
         localStorage.setItem("refreshToken", data.refreshToken);
         console.log("Logged in");
+        return true;
     };
 
     const refreshToken = async () => {
@@ -108,19 +109,22 @@
             });
         if (!response.ok) {
             console.error(`Invalid HTTP Status: ${response.status}`);
-            return;
+            return false;
         }
         const data = await response.json();
         localStorage.setItem("token", data.token);
         localStorage.setItem("refreshToken", data.refreshToken);
         console.log("Refreshed token");
+        return true;
     };
 
     const reloadToken = async () => {
         let data = await checkToken();
         if (!data) {
-            await refreshToken();
-            data = await checkToken();
+            const success = await refreshToken();
+            if (success === true) {
+                data = await checkToken();
+            }
         }
         if (!data) {
             console.log("Loaded without token");
@@ -135,7 +139,12 @@
         form.addEventListener("submit", async event => {
             event.preventDefault();
 
-            await login();
+            const success = await login();
+            if (success === true) {
+                console.log("Login succeeded");
+            } else {
+                console.log("Login failed");
+            }
         });
 
         setInterval(() => {
