@@ -55,7 +55,7 @@
         const profileTitle = document.getElementById("profileTitle");
         const profileDescription = document.getElementById("profileDescription");
 
-        const data = event.data;
+        const data = event.detail;
         profileTitle.textContent = data.subject;
         profileDescription.textContent = `Authenticated using method ${data.authenticationMethod} (authentication identifier: ${data.authenticationIdentifier}). Current token expires in ${data.expiresIn} seconds.`;
 
