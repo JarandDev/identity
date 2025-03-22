@@ -12,7 +12,10 @@ const checkToken = async () => {
         console.error(`Invalid HTTP Status: ${response.status}`);
         return;
     }
-    return await response.json();
+    const data = await response.json();
+    const event = new CustomEvent("token_data_fetched", {detail: data});
+    document.dispatchEvent(event);
+    return data;
 };
 
 const refreshToken = async () => {
