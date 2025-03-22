@@ -38,8 +38,12 @@
 </nav>
 
 <div class="container-md mt-4">
-    <div class="card">
-
+    <div id="profile" class="card invisible">
+        <div class="card-body">
+            <h5 id="profileTitle" class="card-title">...</h5>
+            <p id="profileDescription" class="card-text"></p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
     </div>
 </div>
 
@@ -47,8 +51,15 @@
 <script type="application/javascript" src="../js/script.js"></script>
 <script type="application/javascript">
     document.addEventListener("token_data_fetched", event => {
-        console.log(event);
-        console.log(event.detail);
+        const profile = document.getElementById("profile");
+        const profileTitle = document.getElementById("profileTitle");
+        const profileDescription = document.getElementById("profileDescription");
+
+        const data = event.data;
+        profileTitle.textContent = data.subject;
+        profileDescription.textContent = `Authenticated using method ${data.authenticationMethod} (authentication identifier: ${data.authenticationIdentifier}). Current token expires in ${data.expiresIn} seconds.`;
+
+        profile.classList.remove("invisible");
     });
 </script>
 </body>
