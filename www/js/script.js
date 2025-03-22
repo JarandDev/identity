@@ -53,16 +53,12 @@ const reloadToken = async () => {
 
 document.addEventListener("DOMContentLoaded", async () => {
     setInterval(() => {
-        reloadToken().then(() => {
-            console.log("Successfully reloaded token");
-        }).catch(reason => {
+        reloadToken().catch(reason => {
             console.error("Failed to reload token", reason);
         });
     }, 60000);
 
-    reloadToken().then(() => {
-        console.log("Successfully reloaded token on load");
-    }).catch(reason => {
+    reloadToken().catch(reason => {
         console.error("Failed to reload token on load", reason);
     });
 });
