@@ -10,11 +10,11 @@ const checkToken = async () => {
         });
     if (!response.ok) {
         console.error(`Invalid HTTP Status: ${response.status}`);
+        document.dispatchEvent(new Event("token_data_fetch_failed"));
         return;
     }
     const data = await response.json();
-    const event = new CustomEvent("token_data_fetched", {detail: data});
-    document.dispatchEvent(event);
+    document.dispatchEvent(new CustomEvent("token_data_fetched", {detail: data}));
     return data;
 };
 

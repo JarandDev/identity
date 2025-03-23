@@ -23,13 +23,13 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li id="navLogin" class="nav-item invisible">
                     <a class="nav-link" href="login">Login</a>
                 </li>
-                <li class="nav-item">
+                <li id="navRegister" class="nav-item invisible">
                     <a class="nav-link" href="register">Register</a>
                 </li>
-                <li class="nav-item">
+                <li id="navProfile" class="nav-item invisible">
                     <a class="nav-link" href="profile">Profile</a>
                 </li>
             </ul>
@@ -44,8 +44,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script type="application/javascript" src="js/script.js"></script>
 <script type="application/javascript">
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("token_data_fetched", () => {
+        document.getElementById("navProfile").classList.remove("invisible");
+    });
 
+    document.addEventListener("token_data_fetch_failed", () => {
+        document.getElementById("navLogin").classList.remove("invisible");
+        document.getElementById("navRegister").classList.remove("invisible");
     });
 </script>
 </body>

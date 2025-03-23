@@ -23,13 +23,13 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li id="navLogin" class="nav-item invisible">
                     <a class="nav-link" href="../login">Login</a>
                 </li>
-                <li class="nav-item">
+                <li id="navRegister" class="nav-item invisible">
                     <a class="nav-link active" aria-current="page" href="">Register</a>
                 </li>
-                <li class="nav-item">
+                <li id="navProfile" class="nav-item invisible">
                     <a class="nav-link" href="../profile">Profile</a>
                 </li>
             </ul>
@@ -90,6 +90,15 @@
             }
             console.log("Registered");
         });
+    });
+
+    document.addEventListener("token_data_fetched", () => {
+        document.getElementById("navProfile").classList.remove("invisible");
+    });
+
+    document.addEventListener("token_data_fetch_failed", () => {
+        document.getElementById("navLogin").classList.remove("invisible");
+        document.getElementById("navRegister").classList.remove("invisible");
     });
 </script>
 </body>

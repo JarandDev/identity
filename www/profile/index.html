@@ -23,13 +23,13 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li id="navLogin" class="nav-item invisible">
                     <a class="nav-link" href="../login">Login</a>
                 </li>
-                <li class="nav-item">
+                <li id="navRegister" class="nav-item invisible">
                     <a class="nav-link" href="../register">Register</a>
                 </li>
-                <li class="nav-item">
+                <li id="navProfile" class="nav-item invisible">
                     <a class="nav-link active" aria-current="page" href="">Profile</a>
                 </li>
             </ul>
@@ -42,7 +42,6 @@
         <div class="card-body">
             <h5 id="profileTitle" class="card-title">...</h5>
             <p id="profileDescription" class="card-text"></p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
 </div>
@@ -51,6 +50,8 @@
 <script type="application/javascript" src="../js/script.js"></script>
 <script type="application/javascript">
     document.addEventListener("token_data_fetched", event => {
+        document.getElementById("navProfile").classList.remove("invisible");
+
         const profile = document.getElementById("profile");
         const profileTitle = document.getElementById("profileTitle");
         const profileDescription = document.getElementById("profileDescription");
@@ -60,6 +61,11 @@
         profileDescription.textContent = `Authenticated using method ${data.authenticationMethod} (authentication identifier: ${data.authenticationIdentifier}). Current token expires in ${data.expiresIn} seconds.`;
 
         profile.classList.remove("invisible");
+    });
+
+    document.addEventListener("token_data_fetch_failed", () => {
+        document.getElementById("navLogin").classList.remove("invisible");
+        document.getElementById("navRegister").classList.remove("invisible");
     });
 </script>
 </body>
